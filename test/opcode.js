@@ -85,8 +85,8 @@ describe('Opcode', function() {
   });
 
   describe('@map', function() {
-    it('should have a map containing 116 elements', function() {
-      _.size(Opcode.map).should.equal(116);
+    it('should have a map containing 117 elements', function() {
+      _.size(Opcode.map).should.equal(117);
     });
   });
 
@@ -143,5 +143,10 @@ describe('Opcode', function() {
 
   });
 
+  describe('#inspect', function() {
+    it('should output opcode by name, hex, and decimal', function() {
+      Opcode.fromString('OP_NOP').inspect().should.equal('<Opcode: OP_NOP, hex: 61, decimal: 97>');
+    });
+  });
 
 });

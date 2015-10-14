@@ -49,7 +49,7 @@ describe('PublicKey', function() {
     it('from a private key', function() {
       var privhex = '906977a061af29276e40bf377042ffbde414e496ae2260bbf1fa9d085637bfff';
       var pubhex = '02a1633cafcc01ebfb6d78e39f687a1f0995c62fc95f51ead10a02ee0be551b5dc';
-      var privkey = new PrivateKey(BN(new Buffer(privhex, 'hex')));
+      var privkey = new PrivateKey(new BN(new Buffer(privhex, 'hex')));
       var pk = new PublicKey(privkey);
       pk.toString().should.equal(pubhex);
     });
@@ -169,7 +169,7 @@ describe('PublicKey', function() {
     });
   });
 
-  describe('#json', function() {
+  describe('#json/object', function() {
 
     it('should input/ouput json', function() {
       var json = JSON.stringify({
@@ -177,21 +177,28 @@ describe('PublicKey', function() {
         y: '7baad41d04514751e6851f5304fd243751703bed21b914f6be218c0fa354a341',
         compressed: false
       });
-      PublicKey.fromJSON(json).toJSON().should.deep.equal(json);
+      var pubkey = new PublicKey(JSON.parse(json));
+      JSON.stringify(pubkey).should.deep.equal(json);
     });
 
     it('fails if "y" is not provided', function() {
       expect(function() {
-        return PublicKey.fromJSON('{"x": "1ff0fe0f7b15ffaa85ff9f4744d539139c252a49710fb053bb9f2b933173ff9a"}');
+        return new PublicKey({
+          x: '1ff0fe0f7b15ffaa85ff9f4744d539139c252a49710fb053bb9f2b933173ff9a'
+        });
       }).to.throw();
-      // coverage
-      PublicKey._isJSON({x: '1ff0fe0f7b15ffaa85ff9f4744d539139c252a49710fb053bb9f2b933173ff9a'}).should.equal(false);
     });
 
     it('fails if invalid JSON is provided', function() {
       expect(function() {
         return PublicKey._transformJSON('¹');
       }).to.throw();
+    });
+
+    it('works for X starting with 0x00', function() {
+      var a = new PublicKey('030589ee559348bd6a7325994f9c8eff12bd5d73cc683142bd0dd1a17abc99b0dc');
+      var b = new PublicKey('03'+a.toObject().x);
+      b.toString().should.equal(a.toString());
     });
 
   });

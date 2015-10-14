@@ -1,8 +1,8 @@
-# Bitcore v0.9
+# Bitcore v0.13
 
 ## Principles
 
-Bitcoin is a powerful new peer-to-peer platform for the next generation of financial technology. The decentralized nature of the Bitcoin network allows for highly resilient bitcoin infrastructure, and the developer community needs reliable, open-source tools to implement bitcoin apps and services. Bitcore provides a reliable API for javascript apps that need to interface with Bitcoin.
+Bitcoin is a powerful new peer-to-peer platform for the next generation of financial technology. The decentralized nature of the Bitcoin network allows for highly resilient bitcoin infrastructure, and the developer community needs reliable, open-source tools to implement bitcoin apps and services. Bitcore provides a reliable API for JavaScript apps that need to interface with Bitcoin.
 
 To get started, just `npm install bitcore` or `bower install bitcore`.
 
@@ -33,7 +33,7 @@ To get started, just `npm install bitcore` or `bower install bitcore`.
 
 ## Modules
 
-Some functionality is implemented as a module that can be installed seperately:
+Some functionality is implemented as a module that can be installed separately:
 
 * [Payment Protocol Support](https://github.com/bitpay/bitcore-payment-protocol)
 * [Peer to Peer Networking](https://github.com/bitpay/bitcore-p2p)
@@ -42,6 +42,7 @@ Some functionality is implemented as a module that can be installed seperately:
 * [Mnemonics](https://github.com/bitpay/bitcore-mnemonic)
 * [Elliptical Curve Integrated Encryption Scheme](https://github.com/bitpay/bitcore-ecies)
 * [Blockchain Explorers](https://github.com/bitpay/bitcore-explorers)
+* [Signed Messages](https://github.com/bitpay/bitcore-message)
 
 # Examples 
 
@@ -67,7 +68,7 @@ var address = privateKey.toAddress();
 
 ```javascript
 // Build a 2-of-3 address from public keys
-var P2SHAddress = new bitcore.Address([publicKey1, publicKey2, publicKey3], 2);
+var p2shAddress = new bitcore.Address([publicKey1, publicKey2, publicKey3], 2);
 ```
 
 ## Request a Payment
